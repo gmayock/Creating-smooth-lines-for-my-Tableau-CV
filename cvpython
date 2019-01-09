@@ -1,0 +1,9 @@
+import pandas as pd
+import scipy
+
+df = pd.read_csv("C:/filepath/skills_input.csv")
+df.index = pd.to_datetime(df['Date'], infer_datetime_format=True)
+rng = pd.date_range(df.index.min(), df.index.max())
+df = df.reindex(rng, axis=0).interpolate(method='pchip')
+df['Date']=df.index
+df.to_csv(r'C:/filepath/skills_output.csv', index=False)
